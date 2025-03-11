@@ -1,0 +1,49 @@
+.student-details-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .student-details {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  strong {
+    color: #222;
+  }
+  
+  @media (max-width: 600px) {
+    .student-details-container {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    .student-details {
+      padding: 15px;
+    }
+  
+    p {
+      font-size: 16px;
+    }
+  }
+  

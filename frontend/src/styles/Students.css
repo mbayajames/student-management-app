@@ -1,0 +1,88 @@
+/* Students List Styles */
+.students-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .students-container h1 {
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .students-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .student-item span {
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    padding: 5px 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .dropdown-item {
+    display: block;
+    padding: 10px;
+    color: #2c3e50;
+    text-decoration: none;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .delete-button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
