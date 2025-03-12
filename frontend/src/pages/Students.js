@@ -1,56 +1,88 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import '../styles/Students.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Ensure Bootstrap dropdowns work
+import "react-toastify/dist/ReactToastify.css";
 
-const Students = () => {
+export default function Students() {
   const [students, setStudents] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const res = await axios.get('http://localhost:4000/api/students');
-        setStudents(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
     fetchStudents();
-  }, []);
+  }, [refresh]);
 
-  const handleDelete = async (id) => {
+  const fetchStudents = async () => {
+    const token = localStorage.getItem("token");
+
     try {
-      await axios.delete(`http://localhost:4000/api/students/${id}`);
-      setStudents(students.filter((student) => student._id !== id));
-      alert('Student deleted successfully');
-    } catch (err) {
-      console.error(err);
+      const response = await axios.get("http://localhost:4000/api/students/getAllStudent", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setStudents(response.data);
+    } catch (error) {
+      toast.error("Failed to fetch students", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
+  const handleUpdate = () => {
+    setRefresh(prev => !prev);
+  };
+
   return (
-    <div className="students-container">
-      <h1>Students List</h1>
-      <ul className="students-list">
-        {students.map((student) => (
-          <li key={student._id} className="student-item">
-            <span>{student.firstName} {student.lastName}</span>
-            <span>{student.gender}</span>
-            <div className="actions">
+    <div className="container mt-5">
+      <h2 className="text-center mb-4 text-primary">Students List</h2>
+      <table className="table table-striped table-hover shadow-lg">
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {students.map((student, index) => (
+          <tr key={index}>
+            <td>{student.firstname}</td>
+            <td>{student.lastname}</td>
+            <td>{student.gender}</td>
+            <td>
               <div className="dropdown">
-                <button className="dropdown-toggle">Action</button>
-                <div className="dropdown-menu">
-                  <Link to={`/edit-student/${student._id}`} className="dropdown-item">Edit</Link>
-                  <Link to={`/student-details/${student._id}`} className="dropdown-item">View Details</Link>
-                </div>
+                <button 
+                  className="btn btn-secondary dropdown-toggle" 
+                  type="button" 
+                  id={`dropdownMenuButton${index}`} 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  Actions
+                </button>
+                <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${index}`}>
+                  <li>
+                    <Link className="dropdown-item" to={`/edit-student/${student.id || student.student_id || student._id}`}>
+                      Edit Student
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to={`/student-details/${student.id || student.student_id || student._id}`}>
+                      View Details
+                    </Link>
+                  </li>
+                </ul>
               </div>
-              <button className="delete-button" onClick={() => handleDelete(student._id)}>Delete</button>
-            </div>
-          </li>
+            </td>
+          </tr>
         ))}
-      </ul>
+        </tbody>
+      </table>
     </div>
   );
-};
-
-export default Students;
+}
