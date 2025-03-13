@@ -27,7 +27,7 @@ const EditStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/students/${id}`, { firstName, lastName, gender });
+      await axios.put(`http://localhost:4000/api/students/${id}`, { firstName, lastName, gender });
       alert('Student updated successfully');
       navigate('/students');
     } catch (err) {
